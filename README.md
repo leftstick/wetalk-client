@@ -2,9 +2,9 @@
 A chat client
 
 
-## 想要贡献代码？ ##
+## Want to contribute？ ##
 
-看这里：[开发文档](./docs/start-guide.md)
+Check it here: [Development Guide](./docs/start-guide.md)
 
 ## LICENSE ##
 
