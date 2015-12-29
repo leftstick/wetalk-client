@@ -2,7 +2,7 @@
  *  Return all information of external angular resources
  *
  *  @author  Howard.Zuo
- *  @date    Dec 3, 2015
+ *  @date    Dec 29, 2015
  *
  */
 'use strict';

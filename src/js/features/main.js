@@ -6,7 +6,8 @@
  *
  */
 'use strict';
+var chat = require('./chat/main');
 var login = require('./login/main');
 var common = require('./common/main');
 
-module.exports = [login, ...common];
+module.exports = [chat, login, ...common];

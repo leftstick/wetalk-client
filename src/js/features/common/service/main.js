@@ -7,6 +7,7 @@
  */
 'use strict';
 
+var http = require('./Http');
 var storageService = require('./StorageService');
 
-module.exports = [storageService];
+module.exports = [http, storageService];

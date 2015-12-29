@@ -7,17 +7,28 @@
  */
 'use strict';
 
-var LoginController = function($scope) {
+var LoginController = function($scope, LoginService, utils) {
 
     $scope.user = {};
+    $scope.state = {busy: false};
 
     $scope.login = function() {
-        //TODO: post user info to the server
+        $scope.state.busy = true;
+        LoginService.login($scope.user.nickname)
+            .success(function(res) {
+                console.log('asdfasf', res)
+                $scope.state.busy = false;
+                utils.redirect('/chat/' + $scope.user.nickname);
+            });
     };
 
     $scope.$on('$destroy', function() {});
 };
 
-LoginController.$inject = ['$scope'];
+LoginController.$inject = [
+    '$scope',
+    'LoginService',
+    'utils'
+];
 
 module.exports = LoginController;

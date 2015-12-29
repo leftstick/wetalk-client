@@ -9,6 +9,7 @@
  */
 'use strict';
 var ServiceBase = require('lib/ServiceBase');
+var config = require('etc/config');
 
 class Service extends ServiceBase {
     constructor(features, app) {
@@ -71,6 +72,24 @@ class Service extends ServiceBase {
                 };
 
                 this.promisify = promiseify;
+
+                this.getApi = function(api) {
+                    var root = config.apiRoot || '/';
+
+                    if (!api) {
+                        return root;
+                    }
+
+                    if (root.charAt(root.length - 1) !== '/') {
+                        root = root + '/';
+                    }
+
+                    if (api.charAt(0) === '/') {
+                        api = api.substring(1);
+                    }
+
+                    return root + api;
+                };
 
                 this.stopEvent = function(e) {
                     if (!e) {
