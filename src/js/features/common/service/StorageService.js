@@ -3,11 +3,13 @@
  *  This module used to control data in LocalStorage
  *
  *  @author  Howard.Zuo
- *  @date    Nov 30, 2015
+ *  @date    Dec 29, 2015
  *
  */
 'use strict';
 var FeatureBase = require('lib/FeatureBase');
+
+var PREFIX = 'wechat.';
 
 class Feature extends FeatureBase {
 
@@ -18,8 +20,8 @@ class Feature extends FeatureBase {
     StorageService($window) {
         var storage = $window.localStorage;
 
-        this.get = function(key) {
-            return storage.getItem(key) || '';
+        this.get = function(key, def) {
+            return storage.getItem(PREFIX + key) || def;
         };
 
         this.indexOf = function(i) {
@@ -30,11 +32,11 @@ class Feature extends FeatureBase {
         };
 
         this.set = function(key, value) {
-            storage.setItem(key, value);
+            storage.setItem(PREFIX + key, value);
         };
 
         this.remove = function(key) {
-            storage.removeItem(key);
+            storage.removeItem(PREFIX + key);
         };
 
         this.removeAll = function() {

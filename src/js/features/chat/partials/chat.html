@@ -1,3 +1,43 @@
-<div flex layout="column">
-    
+<div layout="column" style="height: 100%;">
+    <md-toolbar class="md-whiteframe-z2 ">
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" hide-gt-sm ng-click="toggleGroupsPanel('groups-panel')" aria-label="Show groups">
+                <md-icon md-font-icon="icon-menu" style="font-size: 20px;"></md-icon>
+            </md-button>
+            <h2>
+              <span>Let's talk</span>
+            </h2>
+        </div>
+    </md-toolbar>
+
+    <div flex layout="row">
+
+        <md-sidenav ng-if="!groups.length" md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="groups-panel" layout="column" layout-align="center center">
+            <md-button class="empty-group-area" ng-click="createGroup($event)">Create Group</md-button>
+        </md-sidenav>
+
+        <md-sidenav ng-if="groups.length" md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="groups-panel" layout="column">
+            <md-list layout="column">
+                <md-list-item ng-repeat="group in groups">
+                    <md-button ng-click="joinGroup(group)" ng-class="{'selected' : group.joined }">
+                        <md-icon md-font-icon="{{ group.logo }}" class="group-logo"></md-icon>
+                        {{ ::group.name }}
+                    </md-button>
+                </md-list-item>
+            </md-list>
+        </md-sidenav>
+
+      <!-- Container #4 (in wireframe) -->
+      <md-content flex id="content">
+        <md-icon md-svg-icon="{{ul.selected.avatar}}" class="avatar"></md-icon>
+        <h2>{{ul.selected.name}}</h2>
+        <p>{{ul.selected.content}}</p>
+
+        <md-button class="share" md-no-ink ng-click="ul.share($event)" aria-label="Share">
+          <md-icon md-svg-icon="share"></md-icon>
+        </md-button>
+      </md-content>
+
+    </div>
+
 </div>

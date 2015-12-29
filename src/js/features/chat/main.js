@@ -12,6 +12,7 @@
 var FeatureBase = require('lib/FeatureBase');
 var Routes = require('./Routes');
 var ChatController = require('./controller/ChatController');
+var CreateGroupController = require('./controller/CreateGroupController');
 var ChatService = require('./service/ChatService');
 
 class Feature extends FeatureBase {
@@ -23,6 +24,7 @@ class Feature extends FeatureBase {
 
     execute() {
         this.controller('ChatController', ChatController);
+        this.controller('CreateGroupController', CreateGroupController);
         this.service('ChatService', ChatService);
     }
 }

@@ -7,9 +7,9 @@
  */
 'use strict';
 
-var LoginController = function($scope, LoginService, utils) {
+var LoginController = function($scope, LoginService, utils, StorageService) {
 
-    $scope.user = {};
+    $scope.user = {nickname: StorageService.get('nickname', '')};
     $scope.state = {busy: false};
 
     $scope.login = function() {
@@ -28,7 +28,8 @@ var LoginController = function($scope, LoginService, utils) {
 LoginController.$inject = [
     '$scope',
     'LoginService',
-    'utils'
+    'utils',
+    'StorageService'
 ];
 
 module.exports = LoginController;

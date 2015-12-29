@@ -25,7 +25,7 @@ class Feature extends FeatureBase {
                     reject(res);
                     return;
                 }
-                resolve(res);
+                resolve(res.data);
             };
         };
 

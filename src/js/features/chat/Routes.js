@@ -18,7 +18,7 @@ module.exports = [
         controller: 'ChatController',
         template: tpl,
         size: {
-            width: 900,
+            width: 980,
             minWidth: 650,
             height: 600,
             minHeight: 400,
