@@ -1,14 +1,18 @@
 .chat{
     .group-logo {
         position: relative;
-        width: 75px;
-        height: 75px;
+        width: 50px !important;
+        height: 50px !important;
         border: 1px solid #ddd;
         border-radius: 50%;
         display: inline-block;
         overflow: hidden;
         margin: 0px;
         vertical-align: middle;
+        font-size: 30px;
+        box-sizing: border-box !important;
+        line-height: 47px;
+        text-align: center;
     }
 
     .empty-group-area{
@@ -16,5 +20,16 @@
         border-width: 2px;
         border-style: dashed;
         border-color: #A4A4A4;
+    }
+
+    .superscript{
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: red;
+    }
+
+    .joined-group{
+        background-color: #d5edfe;
     }
 }

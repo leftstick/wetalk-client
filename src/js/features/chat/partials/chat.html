@@ -17,12 +17,10 @@
         </md-sidenav>
 
         <md-sidenav ng-if="groups.length" md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="groups-panel" layout="column">
-            <md-list layout="column">
-                <md-list-item ng-repeat="group in groups">
-                    <md-button ng-click="joinGroup(group)" ng-class="{'selected' : group.joined }">
-                        <md-icon md-font-icon="{{ group.logo }}" class="group-logo"></md-icon>
-                        {{ ::group.name }}
-                    </md-button>
+            <md-list layout="column" style="padding: 0;">
+                <md-list-item ng-repeat="group in groups" ng-click="joinGroup(group)" ng-class="{'joined-group': state.joinedGroup.id === group.id}">
+                    <md-icon md-font-icon="{{ group.icon }}" class="group-logo"></md-icon>
+                    <p> {{ ::group.name }} </p>
                 </md-list-item>
             </md-list>
         </md-sidenav>

@@ -1,6 +1,15 @@
 'use strict';
 
-var ChatService = function(http, utils) {};
+var ChatService = function(http, utils) {
+
+    this.getGroups = function(group) {
+        return http.get(utils.getApi('/groups'));
+    };
+
+    this.createGroup = function(group) {
+        return http.post(utils.getApi('/group'), group);
+    };
+};
 
 ChatService.$inject = ['http', 'utils'];
 

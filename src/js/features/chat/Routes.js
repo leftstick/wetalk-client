@@ -20,7 +20,7 @@ module.exports = [
         size: {
             width: 980,
             minWidth: 650,
-            height: 600,
+            height: 650,
             minHeight: 400,
             resizable: true
         }

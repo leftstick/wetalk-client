@@ -1,3 +1,32 @@
 <md-dialog aria-label="create group">
-sdfdsfdsdf
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+          <span>create group</span>
+      </div>
+    </md-toolbar>
+    <md-content layout-padding>
+        <form name="groupForm" ng-submit="createGroup()">
+            <md-input-container class="md-block" style="margin-bottom: 5px;">
+                <label>group name</label>
+                <input ng-model="group.name" required>
+            </md-input-container>
+
+            <md-grid-list md-cols="4" md-row-height="35px" md-gutter="8px">
+                <md-grid-tile ng-repeat="icon in icons"
+                              md-rowspan="1"
+                              md-colspan="1" >
+                  <md-button style="min-width: 10px; margin: 0;" ng-click="selectGroupIcon(icon)" aria-label="choose icon">
+                      <md-icon md-font-icon="{{ icon }}" style='font-size: 25px;'></md-icon>
+                  </md-button>
+                  <md-icon class="superscript" md-font-icon="icon-ok" ng-if="group.icon === icon"></md-icon>
+                </md-grid-tile>
+            </md-grid-list>
+
+            <md-content layout="row" layout-align="end center">
+                <md-button type="submit" class="md-raised md-primary" style="margin-top: 35px;" ng-disabled="groupForm.$invalid || group.busy" aria-label="confirm create group">
+                    confirm
+                </md-button>
+            </md-content>
+        </form>
+    </md-content>
 </md-dialog>
