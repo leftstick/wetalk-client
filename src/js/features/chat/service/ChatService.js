@@ -9,6 +9,10 @@ var ChatService = function(http, utils) {
     this.createGroup = function(group) {
         return http.post(utils.getApi('/group'), group);
     };
+
+    this.getUser = function(id) {
+        return http.get(utils.getApi('/user/' + id));
+    };
 };
 
 ChatService.$inject = ['http', 'utils'];

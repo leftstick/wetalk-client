@@ -22,10 +22,15 @@ class Service extends ServiceBase {
             '$timeout',
             '$location',
             'promiseify',
-            function($q, $timeout, $location, promiseify) {
+            '$templateCache',
+            function($q, $timeout, $location, promiseify, $templateCache) {
 
                 this.delay = function(func, delay) {
                     return $timeout(func, delay);
+                };
+
+                this.cache = function(id, template) {
+                    $templateCache.put(id, template);
                 };
 
                 this.redirect = function(url) {

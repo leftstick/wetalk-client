@@ -3,7 +3,7 @@
  *  Routes module expose route information used in chat feature
  *
  *  @author  Howard.Zuo
- *  @date    Dec 29, 2015
+ *  @date    Dec 30, 2015
  *
  */
 'use strict';
@@ -14,7 +14,7 @@ module.exports = [
     {
         id: 'chat',
         isDefault: false,
-        when: '/chat/:nickname',
+        when: '/chat/:id',
         controller: 'ChatController',
         template: tpl,
         size: {

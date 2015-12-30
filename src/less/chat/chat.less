@@ -1,17 +1,17 @@
 .chat{
     .group-logo {
         position: relative;
-        width: 50px !important;
-        height: 50px !important;
+        width: 40px !important;
+        height: 40px !important;
         border: 1px solid #ddd;
         border-radius: 50%;
         display: inline-block;
         overflow: hidden;
         margin: 0px;
         vertical-align: middle;
-        font-size: 30px;
+        font-size: 20px;
         box-sizing: border-box !important;
-        line-height: 47px;
+        line-height: 37px;
         text-align: center;
     }
 
@@ -31,5 +31,39 @@
 
     .joined-group{
         background-color: #d5edfe;
+        .group-logo{
+            border-color: #3F51B5;
+        }
+    }
+
+    .chat-titlebar{
+        height: 48px;
+        width: 100%;
+    }
+
+    .chat-container{
+        flex: 1;
+        display: flex;
+        overflow-y: auto;
+        padding: 5px;
+        .box{
+            height: 0; display: flex;
+        }
+        &::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        &::-webkit-scrollbar-track {
+            border-radius: 5px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 5px #424242;
+        }
+    }
+
+    md-sidenav{
+        width: 280px;
     }
 }

@@ -1,0 +1,15 @@
+<div class="chat-titlebar md-whiteframe-z1">
+
+</div>
+<div class="chat-container">
+    <div class="box">
+        <div>
+            <div ng-repeat="msg in messages">
+                <div>{{ msg.user.nickname }}</div>
+                <div>{{ msg.data }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<chat-sender on-submit="submitMessage(message)"></chat-sender>

@@ -2,16 +2,16 @@
  *  Generate hash code from string
  *
  *  @author  Howard.Zuo
- *  @date    Dec 29, 2015
+ *  @date    Dec 30, 2015
  *
  */
 'use strict';
 
-var angular = require('angular');
+var isString = require('angular').isString;
 
 module.exports = function(src) {
     var hash = 0, i, chr, len;
-    if (!angular.isString(src)) {
+    if (!isString(src)) {
         return hash;
     }
     if (src.length === 0) {

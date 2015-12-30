@@ -1,0 +1,16 @@
+<div layout="row">
+    <div class="chat-sender-input" flex>
+        <div class="chat-tools" layout="row" layout-align="start center">
+            <md-button class="chat-tools-item" aria-label="tool item">
+                <md-icon md-font-icon="icon-smile"></md-icon>
+            </md-button>
+        </div>
+
+        <div contenteditable autofocus class="chat-sender-directive" ng-model="state.message"></div>
+
+    </div>
+
+    <md-button class="chat-sender-submit" ng-click="sendMsg()">
+        send
+    </md-button>
+</div>

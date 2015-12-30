@@ -2,7 +2,7 @@
  *  Entrance of common service
  *
  *  @author  Howard.Zuo
- *  @date    Dec 29, 2015
+ *  @date    Dec 30, 2015
  *
  */
 'use strict';

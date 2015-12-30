@@ -2,12 +2,12 @@
  *  Defines the LoginController controller
  *
  *  @author  Howard.Zuo
- *  @date    Dec 29, 2015
+ *  @date    Dec 30, 2015
  *
  */
 'use strict';
 
-var LoginController = function($scope, LoginService, utils, StorageService) {
+var LoginController = function($scope, events, LoginService, utils, StorageService) {
 
     $scope.user = {nickname: StorageService.get('nickname', '')};
     $scope.state = {busy: false};
@@ -16,9 +16,13 @@ var LoginController = function($scope, LoginService, utils, StorageService) {
         $scope.state.busy = true;
         LoginService.login($scope.user.nickname)
             .success(function(res) {
-                console.log('asdfasf', res)
                 $scope.state.busy = false;
-                utils.redirect('/chat/' + $scope.user.nickname);
+                StorageService.set('nickname', $scope.user.nickname);
+                utils.redirect('/chat/' + res.id);
+            })
+            .error(function() {
+                $scope.state.busy = false;
+                events.emit('toast-warning', 'nickname is already exist');
             });
     };
 
@@ -27,6 +31,7 @@ var LoginController = function($scope, LoginService, utils, StorageService) {
 
 LoginController.$inject = [
     '$scope',
+    'events',
     'LoginService',
     'utils',
     'StorageService'

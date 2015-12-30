@@ -9,9 +9,14 @@
 
 var CreateGroupTpl = require('../partials/createGroup.html');
 
-var ChatController = function($scope, ChatService, $mdSidenav, $mdDialog) {
+var ChatController = function($scope, ChatService, $mdSidenav, $mdDialog, $routeParams, utils) {
 
     $scope.state = {};
+
+    ChatService.getUser($routeParams.id)
+        .success(function(user) {
+            $scope.loginUser = user;
+        });
 
     ChatService.getGroups()
         .success(function(groups) {
@@ -36,7 +41,12 @@ var ChatController = function($scope, ChatService, $mdSidenav, $mdDialog) {
     };
 
     $scope.joinGroup = function(group) {
-        $scope.state.joinedGroup = group;
+        if ($scope.state.joinedGroup && $scope.state.joinedGroup.id === group.id) {
+            return;
+        }
+        utils
+            .delay(() => $scope.state.joinedGroup = undefined)
+            .then(() => $scope.state.joinedGroup = group);
     };
 
     $scope.$on('$destroy', function() {});
@@ -46,7 +56,9 @@ ChatController.$inject = [
     '$scope',
     'ChatService',
     '$mdSidenav',
-    '$mdDialog'
+    '$mdDialog',
+    '$routeParams',
+    'utils'
 ];
 
 module.exports = ChatController;
