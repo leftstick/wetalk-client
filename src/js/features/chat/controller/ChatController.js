@@ -15,7 +15,7 @@ var ChatController = function($scope, ChatService, $mdSidenav, $mdDialog, $route
 
     ChatService.getUser($routeParams.id)
         .success(function(user) {
-            $scope.loginUser = user;
+            $scope.state.loginUser = user;
         });
 
     ChatService.getGroups()

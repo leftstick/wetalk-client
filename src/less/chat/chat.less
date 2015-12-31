@@ -45,9 +45,14 @@
         flex: 1;
         display: flex;
         overflow-y: auto;
-        padding: 5px;
+        padding: 10px;
+        background-color: #f8fbff;
         .box{
+            width: 100%;
             height: 0; display: flex;
+            >div{
+                width: 100%;
+            }
         }
         &::-webkit-scrollbar {
             width: 5px;
@@ -61,6 +66,67 @@
             border-radius: 10px;
             -webkit-box-shadow: inset 0 0 5px #424242;
         }
+
+        .me-item,
+        .other-item{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin: 5px 0;
+        }
+
+        .me-item{
+            align-items: flex-end;
+
+            .item-message{
+                color: #fff;
+                background-color: #38adff;
+                position: relative;
+            }
+
+            .item-arrow {
+                top: -5px;
+                right: 5px;
+                border-width: 0 5px 5px 5px;
+                border-bottom-color: #38adff;
+            }
+        }
+
+        .other-item{
+            align-items: flex-start;
+
+            .item-message{
+                color: #000;
+                background-color: #fff;
+                border: 1px solid #e1e0e4;
+            }
+
+            .item-arrow {
+                bottom: -5px;
+                left: 5px;
+                border-width: 0 5px 5px 5px;
+                border-top-color: #fff;
+            }
+        }
+
+        .item-nick-name{
+            color: #8e97a1;
+            margin: 5px 1px;
+        }
+
+        .item-message{
+            padding: 5px 10px;
+            border-radius: 6px;
+        }
+
+        .item-arrow{
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+        }
+
     }
 
     md-sidenav{

@@ -2,40 +2,41 @@
  *  Defines the ChatRoomContoller controller
  *
  *  @author  Howard.Zuo
- *  @date    Dec 30, 2015
+ *  @date    Dec 31, 2015
  *
  */
 'use strict';
 
-var config = require('etc/config');
 var io = require('socket.io-client');
 
-var ChatRoomContoller = function($scope, ChatService, $routeParams) {
+var ChatRoomContoller = function($scope, utils, ChatService, $routeParams) {
 
     $scope.messages = [];
 
-    var chat = io.connect(config.apiRoot + $scope.state.joinedGroup.id);
+    var chat = io.connect(utils.getApi($scope.state.joinedGroup.id + ''));
 
     chat.on('connect', function() {
-        if ($scope.loginUser) {
-            return chat.emit('init', $scope.loginUser.id);
+        if ($scope.state.loginUser) {
+            return chat.emit('init', $scope.state.loginUser.id);
         }
 
         ChatService.getUser($routeParams.id)
             .success(function(user) {
-                $scope.loginUser = user;
+                $scope.state.loginUser = user;
             });
     });
 
     chat.on('message', function(message) {
-        $scope.messages.push(message);
+        $scope.$apply(function() {
+            $scope.messages.push(message);
+        });
     });
 
     $scope.state = {};
 
     $scope.submitMessage = function(message) {
         chat.emit('message', {
-            user: $scope.loginUser,
+            user: $scope.state.loginUser,
             type: 'normal',
             data: message
         });
@@ -48,6 +49,7 @@ var ChatRoomContoller = function($scope, ChatService, $routeParams) {
 
 ChatRoomContoller.$inject = [
     '$scope',
+    'utils',
     'ChatService',
     '$routeParams'
 ];
