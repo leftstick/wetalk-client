@@ -8,7 +8,13 @@
 'use strict';
 
 var logout = require('./LogoutListener');
+var menu = require('./MenuListener');
 var indicator = require('./RouteIndicator');
 var routeListener = require('./RouteListener');
 
-module.exports = [logout, indicator, routeListener];
+module.exports = [
+    logout,
+    menu,
+    indicator,
+    routeListener
+];

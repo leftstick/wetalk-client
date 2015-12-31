@@ -51,7 +51,7 @@ var ChatController = function($scope, ChatService, Auth, $mdSidenav, $mdDialog, 
 
     $scope.quit = function() {
         events.emit('confirm', {
-            title: 'Would you like to quit?',
+            title: 'Would you like to logout?',
             onComplete: function() {
                 Auth.logout()
                     .success(function() {
@@ -61,7 +61,30 @@ var ChatController = function($scope, ChatService, Auth, $mdSidenav, $mdDialog, 
         });
     };
 
-    $scope.$on('$destroy', function() {});
+    var quitGroup = function() {
+        $scope.state.joinedGroup = undefined;
+    };
+
+    var quitApp = function() {
+        events.emit('confirm', {
+            title: 'Would you like to quit?',
+            onComplete: function() {
+                Auth.logout()
+                    .success(function() {
+                        require('electron').remote.app.quit();
+                    });
+            }
+        });
+    };
+
+    events.on('quit-group', quitGroup);
+
+    events.on('quit-app', quitApp);
+
+    $scope.$on('$destroy', function() {
+        events.off('quit-group', quitGroup);
+        events.off('quit-app', quitApp);
+    });
 };
 
 ChatController.$inject = [
