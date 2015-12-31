@@ -30,7 +30,7 @@ module.exports = {
         loaders: [
             {
                 test: /\.js$/,
-                loader: 'babel?' + presetsQuery,
+                loader: 'babel?' + presetsQuery + '!modify?value=',
                 exclude: /node_modules/
             },
             {

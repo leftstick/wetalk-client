@@ -2,9 +2,19 @@
 
 var gulp = require('gulp');
 var del = require('del');
+var minimist = require('minimist');
 var resolve = require('path').resolve;
 
 var logger = console.log;
+
+var knownOptions = {
+    string: 'api',
+    default: {
+        api: 'http://127.0.0.1:3000/'
+    }
+};
+
+var options = minimist(process.argv.slice(2), knownOptions);
 
 var getTime = function() {
     var d = new Date();
@@ -30,6 +40,10 @@ var compile = function(isDev, cb) {
     } else {
         config = require(resolve(__dirname, 'webpack.config.prod'));
     }
+
+    var runtimeOpts = JSON.stringify({api: options.api});
+
+    config.module.loaders[0].loader = config.module.loaders[0].loader + new Buffer(runtimeOpts).toString('base64');
 
     var compiler = webpack(config);
 

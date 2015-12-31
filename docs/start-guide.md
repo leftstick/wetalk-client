@@ -17,12 +17,14 @@ Type below command in ternimal:
 
 ```bash
 #This task help compile code whenever changed
-gulp watch
+gulp watch --api http://[server_address]:[server_port]/
 ```
+
+>`api` is optional, `http://127.0.0.1:3000/` is used by default
 
 If you are encountering error as following:
 
-![](./docs/imgs/builderror.png)
+![](./imgs/builderror.png)
 
 execute `gulp fix` task, and try `gulp watch` again
 
@@ -43,7 +45,9 @@ Once code modified, press `ctrl + r`(for windows) or `cmd + r`(for mac) to check
 Type below command in terminal:
 
 ```bash
-gulp release
+gulp release --api http://[server_address]:[server_port]/
 ```
+
+>`api` is optional, `http://127.0.0.1:3000/` is used by default
 
 Two applications will be generated in `./dist/` for `windows-x64`, `osx-x64` platforms.
