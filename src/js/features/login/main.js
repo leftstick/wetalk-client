@@ -4,7 +4,7 @@
  *   Defines a login feature
  *
  *  @author  Howard.Zuo
- *  @date    Dec 29, 2015
+ *  @date    Dec 31, 2015
  *
  * ******************************************************************************************************
  */
@@ -12,7 +12,6 @@
 var FeatureBase = require('lib/FeatureBase');
 var Routes = require('./Routes');
 var LoginController = require('./controller/LoginController');
-var LoginService = require('./service/LoginService');
 
 class Feature extends FeatureBase {
 
@@ -23,7 +22,6 @@ class Feature extends FeatureBase {
 
     execute() {
         this.controller('LoginController', LoginController);
-        this.service('LoginService', LoginService);
     }
 }
 

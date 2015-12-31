@@ -2,12 +2,13 @@
  *  Entrance of common listener
  *
  *  @author  Howard.Zuo
- *  @date    Dec 29, 2015
+ *  @date    Dec 31, 2015
  *
  */
 'use strict';
 
+var logout = require('./LogoutListener');
 var indicator = require('./RouteIndicator');
 var routeListener = require('./RouteListener');
 
-module.exports = [indicator, routeListener];
+module.exports = [logout, indicator, routeListener];

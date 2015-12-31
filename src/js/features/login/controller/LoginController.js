@@ -7,14 +7,14 @@
  */
 'use strict';
 
-var LoginController = function($scope, events, LoginService, utils, StorageService) {
+var LoginController = function($scope, events, Auth, utils, StorageService) {
 
     $scope.user = {nickname: StorageService.get('nickname', '')};
     $scope.state = {busy: false};
 
     $scope.login = function() {
         $scope.state.busy = true;
-        LoginService.login($scope.user.nickname)
+        Auth.login($scope.user.nickname)
             .success(function(res) {
                 $scope.state.busy = false;
                 StorageService.set('nickname', $scope.user.nickname);
@@ -32,7 +32,7 @@ var LoginController = function($scope, events, LoginService, utils, StorageServi
 LoginController.$inject = [
     '$scope',
     'events',
-    'LoginService',
+    'Auth',
     'utils',
     'StorageService'
 ];

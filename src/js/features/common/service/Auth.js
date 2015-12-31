@@ -16,9 +16,27 @@ class Feature extends FeatureBase {
     }
 
     _authService(http, utils) {
+        var user;
 
-        this.logout = function(user) {
-            return http.post(utils.getApi('/logout'), user);
+        this.login = function(nickname) {
+            var promise = http.post(utils.getApi('/login'), {
+                nickname: nickname
+            });
+            promise.success(function(u) {
+                user = u;
+            });
+            return promise;
+        };
+
+        this.logout = function() {
+            if (!user) {
+                return utils.promise(resolve => resolve());
+            }
+            var promise = http.post(utils.getApi('/logout/' + user.id));
+            promise.success(function() {
+                user = null;
+            });
+            return promise;
         };
     }
 
