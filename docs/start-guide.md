@@ -16,10 +16,15 @@ npm install
 Type below command in ternimal:
 
 ```bash
+#This task help compile code whenever changed
 gulp watch
 ```
 
->This task help compile code whenever changed
+If you are encountering error as following:
+
+![](./docs/imgs/builderror.png)
+
+execute `gulp fix` task, and try `gulp watch` again
 
 ### Launch dev electron ###
 
