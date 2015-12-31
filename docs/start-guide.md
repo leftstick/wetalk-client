@@ -50,4 +50,10 @@ gulp release --api http://[server_address]:[server_port]/
 
 >`api` is optional, `http://127.0.0.1:3000/` is used by default
 
+** Note **
+
+If you are trying to release app on windows, make sure you have [7z](http://www.7-zip.org/) installed.
+
+If you are trying to release app on osx, make sure you have [wine](https://www.winehq.org/) installed.
+
 Two applications will be generated in `./dist/` for `windows-x64`, `osx-x64` platforms.
