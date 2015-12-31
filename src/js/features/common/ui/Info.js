@@ -20,10 +20,10 @@ class Feature extends FeatureBase {
 
     infoListener(events, $mdDialog) {
         var defaults = {
-            title: '确认',
+            title: 'Info',
             content: '',
             event: null,
-            okTxt: '确定',
+            okTxt: 'OK',
             onComplete: function() {}
         };
 

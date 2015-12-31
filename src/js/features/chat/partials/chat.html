@@ -1,5 +1,5 @@
 <div layout="column" style="height: 100%;">
-    <md-toolbar class="md-whiteframe-z2">
+    <md-toolbar class="md-whiteframe-z1">
         <div class="md-toolbar-tools">
             <md-button class="md-icon-button" hide-gt-sm ng-click="toggleGroupsPanel('groups-panel')" aria-label="Show groups">
                 <md-icon md-font-icon="icon-menu" style="font-size: 20px;"></md-icon>
@@ -10,6 +10,9 @@
             <span flex></span>
             <span ng-if="state.joinedGroup">{{ ::state.joinedGroup.name }}&nbsp;:&nbsp;</span>
             <span>{{ ::state.loginUser.nickname }}</span>
+            <md-button class="md-icon-button" aria-label="exit" ng-click="quit()">
+                <md-icon md-font-icon="icon-logout-1" class="toolbar-icon"></md-icon>
+            </md-button>
         </div>
     </md-toolbar>
 
@@ -19,7 +22,7 @@
             <md-button class="empty-group-area" ng-click="createGroup($event)">Create Group</md-button>
         </md-sidenav>
 
-        <md-sidenav ng-if="groups.length" md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="groups-panel" layout="column">
+        <md-sidenav ng-if="groups.length" md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z1" md-component-id="groups-panel" layout="column">
             <md-list layout="column" style="padding: 0;">
                 <md-list-item ng-repeat="group in groups" ng-click="joinGroup(group)" ng-class="{'joined-group': state.joinedGroup.id === group.id}">
                     <md-icon md-font-icon="{{ group.icon }}" class="group-logo"></md-icon>
@@ -33,7 +36,7 @@
         </md-content>
 
         <md-content ng-if="state.joinedGroup" flex layout="column">
-            <ng-include src="'chatroomTemplate'" flex layout="column" autoscroll ng-controller="ChatRoomContoller"></ng-include>
+            <ng-include src="'chatroomTemplate'" flex layout="column" autoscroll ng-controller="ChatRoomContoller" class="md-whiteframe-z1"></ng-include>
         </md-content>
 
 

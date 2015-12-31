@@ -20,10 +20,10 @@ class Feature extends FeatureBase {
 
     confirmListener(events, $mdDialog) {
         var defaults = {
-            title: '确认',
+            title: 'Confirm',
             content: '',
-            okTxt: '确定',
-            cancelTxt: '取消',
+            okTxt: 'OK',
+            cancelTxt: 'Cancel',
             onComplete: function() {},
             onCancel: function() {}
         };

@@ -2,14 +2,14 @@
  *  Defines the ChatController controller
  *
  *  @author  Howard.Zuo
- *  @date    Dec 30, 2015
+ *  @date    Dec 31, 2015
  *
  */
 'use strict';
 
 var CreateGroupTpl = require('../partials/createGroup.html');
 
-var ChatController = function($scope, ChatService, $mdSidenav, $mdDialog, $routeParams, utils) {
+var ChatController = function($scope, ChatService, Auth, $mdSidenav, $mdDialog, $routeParams, utils, events) {
 
     $scope.state = {};
 
@@ -49,16 +49,30 @@ var ChatController = function($scope, ChatService, $mdSidenav, $mdDialog, $route
             .then(() => $scope.state.joinedGroup = group);
     };
 
+    $scope.quit = function() {
+        events.emit('confirm', {
+            title: 'Would you like to quit?',
+            onComplete: function() {
+                Auth.logout()
+                    .success(function() {
+                        utils.redirect('/login');
+                    });
+            }
+        });
+    };
+
     $scope.$on('$destroy', function() {});
 };
 
 ChatController.$inject = [
     '$scope',
     'ChatService',
+    'Auth',
     '$mdSidenav',
     '$mdDialog',
     '$routeParams',
-    'utils'
+    'utils',
+    'events'
 ];
 
 module.exports = ChatController;
