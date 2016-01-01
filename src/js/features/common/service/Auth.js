@@ -38,6 +38,10 @@ class Feature extends FeatureBase {
             });
             return promise;
         };
+
+        this.loggedInUser = function() {
+            return user;
+        };
     }
 
     execute() {

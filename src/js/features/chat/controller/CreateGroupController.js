@@ -2,12 +2,14 @@
  *  Defines the CreateGroupController controller
  *
  *  @author  Howard.Zuo
- *  @date    Dec 30, 2015
+ *  @date    Jan 1, 2016
  *
  */
 'use strict';
 
-var CreateGroupController = function($scope, events, ChatService, $mdSidenav, $mdDialog) {
+var CreateGroupController = function($scope, events, Auth, ChatService, $mdDialog) {
+
+    $scope.loginUser = Auth.loggedInUser();
 
     $scope.icons = [
         'icon-bell',
@@ -30,7 +32,8 @@ var CreateGroupController = function($scope, events, ChatService, $mdSidenav, $m
         $scope.group.busy = true;
         ChatService.createGroup({
             icon: $scope.group.icon,
-            name: $scope.group.name
+            name: $scope.group.name,
+            owner: $scope.loginUser
         })
             .success(function(group) {
                 $scope.group.busy = false;
@@ -48,8 +51,8 @@ var CreateGroupController = function($scope, events, ChatService, $mdSidenav, $m
 CreateGroupController.$inject = [
     '$scope',
     'events',
+    'Auth',
     'ChatService',
-    '$mdSidenav',
     '$mdDialog'
 ];
 

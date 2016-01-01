@@ -1,5 +1,9 @@
-<div class="chat-titlebar md-whiteframe-z1">
-
+<div class="chat-titlebar md-whiteframe-z1" layout="row" layout-align="start center">
+    <span class="onlive-num">{{ users.length }}</span>&nbsp;&nbsp;<span>members</span>
+    <span flex></span>
+    <md-button class="md-icon-button chat-title-button" aria-label="check users">
+        <md-icon md-font-icon="icon-users"></md-icon>
+    </md-button>
 </div>
 <div class="chat-container">
     <div class="box">

@@ -2,21 +2,17 @@
  *  Defines the ChatController controller
  *
  *  @author  Howard.Zuo
- *  @date    Dec 31, 2015
+ *  @date    Jan 1, 2016
  *
  */
 'use strict';
 
 var CreateGroupTpl = require('../partials/createGroup.html');
 
-var ChatController = function($scope, ChatService, Auth, $mdSidenav, $mdDialog, $routeParams, utils, events) {
+var ChatController = function($scope, ChatService, Auth, $mdSidenav, $mdDialog, utils, events) {
 
     $scope.state = {};
-
-    ChatService.getUser($routeParams.id)
-        .success(function(user) {
-            $scope.state.loginUser = user;
-        });
+    $scope.state.loginUser = Auth.loggedInUser();
 
     ChatService.getGroups()
         .success(function(groups) {
@@ -94,7 +90,6 @@ ChatController.$inject = [
     'Auth',
     '$mdSidenav',
     '$mdDialog',
-    '$routeParams',
     'utils',
     'events'
 ];
