@@ -1,5 +1,5 @@
 <div class="chat-titlebar md-whiteframe-z1" layout="row" layout-align="start center">
-    <span class="onlive-num">{{ state.joinedGroup.users.length }}</span>&nbsp;&nbsp;<span>members</span>
+    <span class="onlive-num">{{ state.joinedGroup.users.length }}</span>&nbsp;&nbsp;<span ng-if="state.joinedGroup.users.length === 1">member</span><span ng-if="state.joinedGroup.users.length > 1">members</span>
     <span flex></span>
     <md-button class="md-icon-button chat-title-button" aria-label="check users">
         <md-icon md-font-icon="icon-users"></md-icon>

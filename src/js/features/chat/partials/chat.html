@@ -9,7 +9,10 @@
             </h2>
             <span flex></span>
             <span ng-if="state.joinedGroup">{{ ::state.joinedGroup.name }}&nbsp;:&nbsp;</span>
-            <span>{{ ::state.loginUser.nickname }}</span>
+            <span>{{ ::state.loginUser.nickname }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <md-button class="md-icon-button" aria-label="create group" ng-click="">
+                <md-icon md-font-icon="icon-user-add-outline" class="toolbar-icon"></md-icon>
+            </md-button>
             <md-button class="md-icon-button" aria-label="exit" ng-click="quit()">
                 <md-icon md-font-icon="icon-logout-1" class="toolbar-icon"></md-icon>
             </md-button>
