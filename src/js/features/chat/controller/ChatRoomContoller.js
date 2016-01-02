@@ -2,7 +2,7 @@
  *  Defines the ChatRoomContoller controller
  *
  *  @author  Howard.Zuo
- *  @date    Jan 1, 2016
+ *  @date    Jan 2, 2016
  *
  */
 'use strict';
@@ -12,10 +12,15 @@ var io = require('socket.io-client');
 var ChatRoomContoller = function($scope, utils) {
 
     $scope.messages = [];
-    var chat = io.connect(utils.getApi($scope.state.joinedGroup.id + ''));
+
+    var loginUser = $scope.state.loginUser;
+
+    var chat = io(utils.getApi($scope.state.joinedGroup.id + ''), {
+        multiplex: false
+    });
 
     chat.on('connect', function() {
-        chat.emit('init', $scope.state.loginUser.id);
+        chat.emit('init', loginUser.id);
     });
 
     chat.on('message', function(message) {
@@ -24,15 +29,21 @@ var ChatRoomContoller = function($scope, utils) {
         });
     });
 
-    chat.on('group-user-updated', function(users) {
+    chat.on('group-user-added', function(user) {
         $scope.$apply(function() {
-            $scope.users = users;
+            $scope.state.joinedGroup.users.push(user);
+        });
+    });
+
+    chat.on('group-user-removed', function(user) {
+        $scope.$apply(function() {
+            $scope.state.joinedGroup.users.splice($scope.state.joinedGroup.users.findIndex(u => u.id === user.id), 1);
         });
     });
 
     $scope.submitMessage = function(message) {
         chat.emit('message', {
-            user: $scope.state.loginUser,
+            user: loginUser,
             type: 'normal',
             data: message
         });

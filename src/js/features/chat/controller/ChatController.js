@@ -58,6 +58,7 @@ var ChatController = function($scope, ChatService, Auth, $mdSidenav, $mdDialog, 
     };
 
     var quitGroup = function() {
+        $scope.state.joinedGroup.users.splice($scope.state.joinedGroup.users.findIndex(u => u.id === $scope.state.loginUser.id), 1);
         utils
             .delay(() => $scope.state.joinedGroup = undefined);
     };
