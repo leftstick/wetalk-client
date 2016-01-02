@@ -8,7 +8,7 @@
 <div class="chat-container">
     <div class="box">
         <div>
-            <div ng-repeat="msg in messages" ng-class="{'me-item': msg.user.id === state.loginUser.id, 'other-item': msg.user.id !== state.loginUser.id}">
+            <div ng-repeat="msg in messages" ng-class="{'me-item': msg.user.id === state.loginUser.id && msg.type === 'normal', 'other-item': msg.user.id !== state.loginUser.id && msg.type === 'normal', 'notify-item': msg.type === 'user-notify'}">
                 <div class="item-nick-name">{{ msg.user.nickname }}</div>
                 <div class="item-message">
                     <div class="item-arrow"></div>

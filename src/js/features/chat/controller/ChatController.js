@@ -2,7 +2,7 @@
  *  Defines the ChatController controller
  *
  *  @author  Howard.Zuo
- *  @date    Jan 1, 2016
+ *  @date    Jan 2, 2016
  *
  */
 'use strict';
