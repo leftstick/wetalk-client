@@ -7,9 +7,33 @@
  */
 'use strict';
 
+var io = require('socket.io-client');
 var CreateGroupTpl = require('../partials/createGroup.html');
 
 var ChatController = function($scope, ChatService, Auth, $mdSidenav, $mdDialog, utils, events) {
+
+    var chatroom = io(utils.getApi('/chatroom'), {multiplex: false});
+
+    chatroom.on('group-added', function(group) {
+        $scope.$apply(function() {
+            $scope.groups.push(group);
+        });
+    });
+
+    chatroom.on('group-removed', function(group) {
+        $scope.$apply(function() {
+            $scope.groups.splice($scope.groups.findIndex(g => g.id === group.id), 1);
+        });
+    });
+
+    chatroom.on('group-user-updated', function(group) {
+        $scope.$apply(function() {
+            $scope.groups.find(g => g.id === group.id).users = group.users;
+            if ($scope.state.joinedGroup.id === group.id) {
+                $scope.state.joinedGroup.users = group.users;
+            }
+        });
+    });
 
     $scope.state = {};
     $scope.state.loginUser = Auth.loggedInUser();
@@ -31,7 +55,6 @@ var ChatController = function($scope, ChatService, Auth, $mdSidenav, $mdDialog, 
             clickOutsideToClose: true
         })
             .then(function(answer) {
-                $scope.groups.push(answer);
                 $scope.joinGroup(answer);
             });
     };

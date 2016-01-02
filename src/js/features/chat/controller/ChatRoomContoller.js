@@ -29,15 +29,11 @@ var ChatRoomContoller = function($scope, utils) {
         });
     });
 
-    chat.on('retrieve-users', function(users) {
-        $scope.$apply(function() {
-            $scope.state.joinedGroup.users = users;
-        });
-    });
-
     chat.on('group-user-added', function(user) {
+        if (user.id === loginUser.id) {
+            return;
+        }
         $scope.$apply(function() {
-            $scope.state.joinedGroup.users.push(user);
             $scope.messages.push({
                 user: user,
                 type: 'user-notify',
@@ -48,7 +44,6 @@ var ChatRoomContoller = function($scope, utils) {
 
     chat.on('group-user-removed', function(user) {
         $scope.$apply(function() {
-            $scope.state.joinedGroup.users.splice($scope.state.joinedGroup.users.findIndex(u => u.id === user.id), 1);
             $scope.messages.push({
                 user: user,
                 type: 'user-notify',
