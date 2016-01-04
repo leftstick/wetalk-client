@@ -41,7 +41,7 @@
     "electron-prebuilt": "^0.36.2",
     "file-loader": "^0.8.5",
     "gulp": "^3.9.0",
-    "gulp-electron": "0.0.9",
+    "gulp-electron": "0.0.10",
     "less": "^2.5.3",
     "less-loader": "^2.2.2",
     "minimist": "^1.2.0",
