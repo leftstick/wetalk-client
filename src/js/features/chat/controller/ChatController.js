@@ -2,7 +2,7 @@
  *  Defines the ChatController controller
  *
  *  @author  Howard.Zuo
- *  @date    Jan 2, 2016
+ *  @date    Jan 4, 2016
  *
  */
 'use strict';
@@ -65,7 +65,7 @@ var ChatController = function($scope, ChatService, Auth, $mdSidenav, $mdDialog, 
         }
         utils
             .delay(() => $scope.state.joinedGroup = undefined)
-            .then(() => $scope.state.joinedGroup = group);
+            .then(() => utils.delay(() => $scope.state.joinedGroup = group));
     };
 
     $scope.quit = function() {
@@ -105,6 +105,7 @@ var ChatController = function($scope, ChatService, Auth, $mdSidenav, $mdDialog, 
     $scope.$on('$destroy', function() {
         events.off('quit-group', quitGroup);
         events.off('quit-app', quitApp);
+        chatroom.disconnect();
     });
 };
 

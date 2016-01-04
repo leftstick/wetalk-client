@@ -33,7 +33,7 @@ var CreateGroupController = function($scope, events, Auth, ChatService, $mdDialo
         ChatService.createGroup({
             icon: $scope.group.icon,
             name: $scope.group.name,
-            owner: $scope.loginUser
+            ownerId: $scope.loginUser.id
         })
             .success(function(group) {
                 $scope.group.busy = false;

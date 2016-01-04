@@ -14,6 +14,9 @@
                     <div class="item-arrow"></div>
                     <div ng-bind-html="msg.data"></div>
                 </div>
+                <div ng-if="msg.type === 'user-notify'" class="user-notify">
+                    {{ msg.user.nickname }}&nbsp;&nbsp;&nbsp;{{ msg.data }}
+                </div>
             </div>
         </div>
     </div>

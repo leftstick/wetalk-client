@@ -2,7 +2,7 @@
  *  Defines the ChatRoomContoller controller
  *
  *  @author  Howard.Zuo
- *  @date    Jan 2, 2016
+ *  @date    Jan 3, 2016
  *
  */
 'use strict';
@@ -15,7 +15,9 @@ var ChatRoomContoller = function($scope, utils) {
 
     var loginUser = $scope.state.loginUser;
 
-    var chat = io(utils.getApi($scope.state.joinedGroup.id + ''), {
+    var joinedGroup = $scope.state.joinedGroup;
+
+    var chat = io(utils.getApi(joinedGroup.name), {
         multiplex: false
     });
 
@@ -30,14 +32,11 @@ var ChatRoomContoller = function($scope, utils) {
     });
 
     chat.on('group-user-added', function(user) {
-        if (user.id === loginUser.id) {
-            return;
-        }
         $scope.$apply(function() {
             $scope.messages.push({
                 user: user,
                 type: 'user-notify',
-                data: 'joined ' + $scope.state.joinedGroup.name
+                data: 'joined ' + joinedGroup.name
             });
         });
     });
@@ -47,17 +46,15 @@ var ChatRoomContoller = function($scope, utils) {
             $scope.messages.push({
                 user: user,
                 type: 'user-notify',
-                data: 'left ' + $scope.state.joinedGroup.name
+                data: 'left ' + joinedGroup.name
             });
         });
     });
 
-    $scope.submitMessage = function(message) {
-        chat.emit('message', {
-            user: loginUser,
-            type: 'normal',
-            data: message
-        });
+    $scope.submitMessage = function(text) {
+        var message = {user: loginUser, type: 'normal', data: text};
+        chat.emit('message', message);
+        $scope.messages.push(message);
     };
 
     $scope.$on('$destroy', function() {
