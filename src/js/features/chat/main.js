@@ -4,7 +4,7 @@
  *   Defines a chat feature
  *
  *  @author  Howard.Zuo
- *  @date    Dec 30, 2015
+ *  @date    Jan 4, 2016
  *
  * ******************************************************************************************************
  */
@@ -17,6 +17,7 @@ var ChatRoomContoller = require('./controller/ChatRoomContoller');
 var ChatService = require('./service/ChatService');
 var ChatSender = require('./directive/ChatSender');
 var Contenteditable = require('./directive/Contenteditable');
+var KeepBottom = require('./directive/KeepBottom');
 
 var chatroomTemplate = require('./partials/chatroom.html');
 
@@ -34,6 +35,7 @@ class Feature extends FeatureBase {
         this.service('ChatService', ChatService);
         this.directive('chatSender', ChatSender);
         this.directive('contenteditable', Contenteditable);
+        this.directive('keepBottom', KeepBottom);
         this.run([
             'utils',
             function(utils) {
