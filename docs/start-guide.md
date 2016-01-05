@@ -5,11 +5,21 @@
 
 ## debug ##
 
+### Clone Source Code ###
+
+```bash
+#move to a folder you preferred to work in
+git clone https://github.com/leftstick/wetalk-client.git
+```
+
 ### Install Dependencies ###
 
 ```bash
+cd wetalk-client
 npm install
 ```
+
+>Above command will have dependencies(declared in `wetalk-client/package.json`) installed locally
 
 ### Launch compiler watcher ###
 
