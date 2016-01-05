@@ -2,12 +2,14 @@
  *  Defines the ChatRoomContoller controller
  *
  *  @author  Howard.Zuo
- *  @date    Jan 3, 2016
+ *  @date    Jan 5, 2016
  *
  */
 'use strict';
 
 var io = require('socket.io-client');
+var Tray = require('electron').remote.Tray;
+var nativeImage = require('electron').remote.nativeImage;
 
 var ChatRoomContoller = function($scope, utils) {
 
@@ -55,6 +57,21 @@ var ChatRoomContoller = function($scope, utils) {
         var message = {user: loginUser, type: 'normal', data: text};
         chat.emit('message', message);
         $scope.messages.push(message);
+
+        var isWin = /^win/.test(process.platform);
+
+        if (isWin) {
+            Tray.displayBalloon({
+                icon: nativeImage.createFromPath(require('img/message-icon.png')),
+                content: 'Lorem Ipsum Dolor Sit Amet'
+            });
+            return;
+        }
+
+        var myNotification = new Notification('Title', {
+            body: 'Lorem Ipsum Dolor Sit Amet',
+            icon: require('img/message-icon.png')
+        });
     };
 
     $scope.showUsers = function($mdOpenMenu, ev) {
