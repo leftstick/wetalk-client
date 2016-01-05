@@ -31,7 +31,9 @@ Type below command in ternimal:
 gulp watch --api http://[server_address]:[server_port]/
 ```
 
-This command will launch a special compiler server which continuously compile source code by using `webpack` whenever code is changed
+This command will launch a special compiler server which continuously compile source code by using `webpack` whenever code is changed.
+
+If you are going to debug the chatroom with local [wetalk-server](https://github.com/leftstick/wetalk-server), just ignore the `--api` option.
 
 ##### options #####
 
