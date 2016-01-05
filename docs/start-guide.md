@@ -63,6 +63,10 @@ Type below command in terminal:
 gulp release --api http://[server_address]:[server_port]/
 ```
 
+##### options #####
+
+- `api` The server address you would communicated with. default is `http://127.0.0.1:3000/`. **optional**
+
 ** Note **
 
 If you are trying to release app on windows, make sure you have [7z](http://www.7-zip.org/) installed.
