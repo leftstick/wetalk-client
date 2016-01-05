@@ -2,18 +2,33 @@
  *  Defines the KeepBottom directive
  *
  *  @author  Howard.Zuo
- *  @date    Jan 4, 2016
+ *  @date    Jan 5, 2016
  *
  */
 'use strict';
 
-var KeepBottom = function() {
+var KeepBottom = function(utils) {
     return {
         restrict: 'A',
+        scope: {
+            keepBottom: '='
+        },
         link: function($scope, element, attrs) {
-            element[0].scrollTop = element[0].scrollHeight;
+
+            var watcher = $scope.$watch('keepBottom', function(newValue) {
+                if (!newValue) {
+                    return;
+                }
+                utils.delay(() => element[0].scrollTop = element[0].scrollHeight);
+            }, true);
+
+            $scope.$on('$destroy', function() {
+                watcher();
+            });
         }
     };
 };
+
+KeepBottom.$inject = ['utils'];
 
 module.exports = KeepBottom;

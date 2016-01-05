@@ -5,7 +5,7 @@
         <md-icon md-font-icon="icon-users"></md-icon>
     </md-button>
 </div>
-<div class="chat-container" keep-bottom>
+<div class="chat-container" keep-bottom="messages">
     <div class="box">
         <div>
             <div ng-repeat="msg in messages" ng-class="{'me-item': msg.user.id === state.loginUser.id && msg.type === 'normal', 'other-item': msg.user.id !== state.loginUser.id && msg.type === 'normal', 'notify-item': msg.type === 'user-notify'}">
