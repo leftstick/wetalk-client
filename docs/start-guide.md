@@ -30,7 +30,9 @@ Type below command in ternimal:
 gulp watch --api http://[server_address]:[server_port]/
 ```
 
->`api` is optional, `http://127.0.0.1:3000/` is used by default
+##### options #####
+
+- `api` The server address you would communicated with. default is `http://127.0.0.1:3000/`. **optional**
 
 If you are encountering error as following:
 
