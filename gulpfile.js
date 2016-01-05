@@ -132,8 +132,9 @@ gulp.task('release', ['compile-release'], function() {
 });
 
 gulp.task('dev', function(cb) {
+    var isWin = /^win/.test(process.platform);
     require('child_process')
-        .exec('node ./node_modules/.bin/electron --debug=5858 ./src/build/', {
+        .exec(isWin ? 'sh' : 'node' + ' ./node_modules/.bin/electron --debug=5858 ./src/build/', {
             cwd: __dirname,
             env: {
                 NODE_ENV: 'dev'
