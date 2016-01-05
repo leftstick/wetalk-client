@@ -57,6 +57,10 @@ var ChatRoomContoller = function($scope, utils) {
         $scope.messages.push(message);
     };
 
+    $scope.showUsers = function($mdOpenMenu, ev) {
+        $mdOpenMenu(ev);
+    };
+
     $scope.$on('$destroy', function() {
         chat.disconnect();
     });
