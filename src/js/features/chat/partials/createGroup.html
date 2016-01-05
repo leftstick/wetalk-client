@@ -8,7 +8,7 @@
         <form name="groupForm" ng-submit="createGroup()">
             <md-input-container class="md-block" style="margin-bottom: 5px;">
                 <label>group name</label>
-                <input ng-model="group.name" required autofocus>
+                <input ng-model="group.name" ng-pattern="/^\w+$/" required autofocus>
             </md-input-container>
 
             <md-grid-list md-cols="4" md-row-height="35px" md-gutter="8px">

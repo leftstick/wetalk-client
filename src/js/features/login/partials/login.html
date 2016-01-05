@@ -6,7 +6,7 @@
 
                 <md-input-container class="md-block">
                     <label>nickname</label>
-                    <input ng-model="user.nickname" name="nickname" type="text" autofocus required>
+                    <input ng-model="user.nickname" name="nickname" type="text" ng-pattern="/^\w+$/" autofocus required>
                 </md-input-container>
 
                 <md-button type="submit" class="md-raised md-primary" style="margin: 0;width: 100%;" ng-disabled="loginform.$invalid || state.busy">sign in</md-button>
