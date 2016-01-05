@@ -8,8 +8,7 @@
 'use strict';
 
 var io = require('socket.io-client');
-var Tray = require('electron').remote.Tray;
-var nativeImage = require('electron').remote.nativeImage;
+var mainWindow = require('electron').remote.getCurrentWindow();
 
 var ChatRoomContoller = function($scope, utils) {
 
@@ -30,6 +29,13 @@ var ChatRoomContoller = function($scope, utils) {
     chat.on('message', function(message) {
         $scope.$apply(function() {
             $scope.messages.push(message);
+        });
+
+        if (mainWindow.isFocused()) {
+            return;
+        }
+        var myNotification = new Notification('Message', {
+            body: message.user.nickname + '  ' + message.data
         });
     });
 
@@ -57,21 +63,6 @@ var ChatRoomContoller = function($scope, utils) {
         var message = {user: loginUser, type: 'normal', data: text};
         chat.emit('message', message);
         $scope.messages.push(message);
-
-        var isWin = /^win/.test(process.platform);
-
-        if (isWin) {
-            Tray.displayBalloon({
-                icon: nativeImage.createFromPath(require('img/message-icon.png')),
-                content: 'Lorem Ipsum Dolor Sit Amet'
-            });
-            return;
-        }
-
-        var myNotification = new Notification('Title', {
-            body: 'Lorem Ipsum Dolor Sit Amet',
-            icon: require('img/message-icon.png')
-        });
     };
 
     $scope.showUsers = function($mdOpenMenu, ev) {
