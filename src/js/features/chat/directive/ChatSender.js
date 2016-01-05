@@ -2,12 +2,15 @@
  *  Defines the ChatSender directive
  *
  *  @author  Howard.Zuo
- *  @date    Dec 30, 2015
+ *  @date    Jan 6, 2016
  *
  */
 'use strict';
 
 var senderTpl = require('./sender.html');
+
+var key = require('keymaster');
+var angular = require('angular');
 
 var ChatSender = function() {
     return {
@@ -18,13 +21,36 @@ var ChatSender = function() {
         template: senderTpl,
         link: function($scope, element, attrs) {
             $scope.state = {};
+
             $scope.sendMsg = function() {
+                if (!$scope.state.message) {
+                    return;
+                }
                 $scope.onSubmit({
                     message: $scope.state.message
                 });
                 $scope.state.message = '';
                 element[0].querySelector('.chat-sender-directive').focus();
             };
+
+            var sender = angular.element(element[0].querySelector('[contenteditable]'));
+
+            sender.on('focus', function() {
+                key('enter', function(event, handler) {
+                    $scope.$apply(function() {
+                        $scope.sendMsg();
+                    });
+                });
+            });
+
+            var unbind = function() {
+                key.unbind('enter');
+            };
+
+            sender.on('blur', unbind);
+
+            $scope.$on('$destroy', unbind);
+
         }
     };
 };

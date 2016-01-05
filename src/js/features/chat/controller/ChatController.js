@@ -29,7 +29,7 @@ var ChatController = function($scope, ChatService, Auth, $mdSidenav, $mdDialog, 
     chatroom.on('group-user-updated', function(group) {
         $scope.$apply(function() {
             $scope.groups.find(g => g.id === group.id).users = group.users;
-            if ($scope.state.joinedGroup.id === group.id) {
+            if ($scope.state.joinedGroup && $scope.state.joinedGroup.id === group.id) {
                 $scope.state.joinedGroup.users = group.users;
             }
         });
