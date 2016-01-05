@@ -3,12 +3,11 @@
  *  This module handles quit event for application
  *
  *  @author  Howard.Zuo
- *  @date    Dec 31, 2015
+ *  @date    Jan 5, 2016
  *
  */
 'use strict';
 var FeatureBase = require('lib/FeatureBase');
-var app = require('electron').remote.app;
 
 class Feature extends FeatureBase {
 
@@ -16,14 +15,18 @@ class Feature extends FeatureBase {
         super('LogoutListenerModule');
     }
 
-    _listener(Auth) {
-        app.on('before-quit', function(e) {
-            Auth.logout();
-        });
+    _listener(events, $document) {
+
+        window.onbeforeunload = function(e) {
+            if ($document[0].body.id !== 'login') {
+                e.returnValue = false;
+                events.emit('quit-app');
+            }
+        };
     }
 
     execute() {
-        this._listener.$inject = ['Auth'];
+        this._listener.$inject = ['events', '$document'];
         this.run(this._listener);
     }
 }

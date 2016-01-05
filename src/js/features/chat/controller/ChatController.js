@@ -92,7 +92,7 @@ var ChatController = function($scope, ChatService, Auth, $mdSidenav, $mdDialog, 
             onComplete: function() {
                 Auth.logout()
                     .success(function() {
-                        require('electron').remote.app.quit();
+                        require('electron').remote.app.exit(0);
                     });
             }
         });
