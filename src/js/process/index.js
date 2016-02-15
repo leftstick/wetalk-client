@@ -8,6 +8,6 @@ var launcher = require('./Launcher');
 
 //launch the app
 launcher(app)
-    .then(function(win) {
+    .then(function(win){
         return win;
     });

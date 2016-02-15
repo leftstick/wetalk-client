@@ -3,7 +3,7 @@
  *  Defines RouteIndicator service
  *
  *  @author  Howard.Zuo
- *  @date    Dec 29, 2015
+ *  @date    Feb 15, 2016
  *
  */
 'use strict';
@@ -11,23 +11,23 @@ var pluck = require('lib/Pluck');
 var angular = require('angular');
 var FeatureBase = require('lib/FeatureBase');
 
-class Feature extends FeatureBase {
+class Feature extends FeatureBase{
 
-    constructor() {
+    constructor(){
         super('RouteIndicator');
         this.$body = angular.element(document.body);
     }
 
-    execute() {
+    execute(){
         var self = this;
         this.run([
             '$rootScope',
             'Routes',
-            function($rootScope, Routes) {
+            function($rootScope, Routes){
                 var classes = pluck(Routes, 'id').join(' ');
-                $rootScope.$on('$routeChangeSuccess', function(e, route) {
+                $rootScope.$on('$routeChangeSuccess', function(e, route){
                     self.$body.removeClass(classes);
-                    if (route && route.$$route && route.$$route.id) {
+                    if (route && route.$$route && route.$$route.id){
                         self.$body.addClass(route.$$route.id);
                         self.$body.attr('id', route.$$route.id);
                     }

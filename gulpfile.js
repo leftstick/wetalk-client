@@ -16,40 +16,40 @@ var knownOptions = {
 
 var options = minimist(process.argv.slice(2), knownOptions);
 
-var getTime = function() {
+var getTime = function(){
     var d = new Date();
     return d.getHours() + ':' + d.getMinutes() + ' ' + d.getSeconds() + '-' + d.getMilliseconds();
 };
 
-var handleStatsError = function(stats) {
+var handleStatsError = function(stats){
     var info = stats.toJson();
-    if (info.errors.length > 0) {
-        logger('[webpack]', stats.toString({colors: true}));
+    if (info.errors.length > 0){
+        logger('[webpack]', stats.toString({ colors: true }));
         logger('\n [ ' + getTime() + ' ]   webpack: bundle is now INVALID.');
         return;
     }
     logger('\n [ ' + getTime() + ' ]   webpack: bundle is now VALID!');
 };
 
-var compile = function(isDev, cb) {
+var compile = function(isDev, cb){
     var webpack = require('webpack');
     var config;
 
-    if (isDev) {
+    if (isDev){
         config = require(resolve(__dirname, 'webpack.config.dev'));
-    } else {
+    }else {
         config = require(resolve(__dirname, 'webpack.config.prod'));
     }
 
-    var runtimeOpts = JSON.stringify({api: options.api});
+    var runtimeOpts = JSON.stringify({ api: options.api });
 
     config.module.loaders[0].loader = config.module.loaders[0].loader + new Buffer(runtimeOpts).toString('base64');
 
     var compiler = webpack(config);
 
-    if (isDev) {
-        compiler.watch({aggregateTimeout: 500, poll: true}, function(err, stats) {
-            if (err) {
+    if (isDev){
+        compiler.watch({ aggregateTimeout: 500,poll: true }, function(err, stats){
+            if (err){
                 logger('[ERROR]: ', err);
                 return;
             }
@@ -58,8 +58,8 @@ var compile = function(isDev, cb) {
         return;
     }
 
-    compiler.run(function(err, stats) {
-        if (err) {
+    compiler.run(function(err, stats){
+        if (err){
             cb(err);
             return;
         }
@@ -67,35 +67,35 @@ var compile = function(isDev, cb) {
     });
 };
 
-gulp.task('clean-dist', function() {
+gulp.task('clean-dist', function(){
     return del(['./dist/**/*']);
 });
 
-gulp.task('clean-build', function() {
+gulp.task('clean-build', function(){
     return del(['./src/build/**/*']);
 });
 
-gulp.task('copy-index', ['clean-build', 'clean-dist'], function() {
+gulp.task('copy-index', ['clean-build', 'clean-dist'], function(){
     return gulp
         .src(['./src/index.html'])
         .pipe(gulp.dest('./src/build'));
 });
 
-gulp.task('copy-package.json', ['clean-build', 'clean-dist'], function() {
+gulp.task('copy-package.json', ['clean-build', 'clean-dist'], function(){
     return gulp
         .src(['./package.json'])
         .pipe(gulp.dest('./src/build'));
 });
 
-gulp.task('watch', ['copy-index', 'copy-package.json'], function(cb) {
+gulp.task('watch', ['copy-index', 'copy-package.json'], function(cb){
     compile(true, cb);
 });
 
-gulp.task('compile-release', ['copy-index', 'copy-package.json'], function(cb) {
+gulp.task('compile-release', ['copy-index', 'copy-package.json'], function(cb){
     compile(false, cb);
 });
 
-gulp.task('release', ['compile-release'], function() {
+gulp.task('release', ['compile-release'], function(){
 
     var electron = require('gulp-electron');
     var packageJson = require('./package.json');
@@ -105,7 +105,7 @@ gulp.task('release', ['compile-release'], function() {
             packageJson: packageJson,
             release: './dist',
             cache: './cache',
-            version: 'v0.36.2',
+            version: 'v0.36.7',
             packaging: true,
             asar: true,
             platforms: [
@@ -131,7 +131,7 @@ gulp.task('release', ['compile-release'], function() {
         .pipe(gulp.dest(''));
 });
 
-gulp.task('dev', function(cb) {
+gulp.task('dev', function(cb){
     var isWin = /^win/.test(process.platform);
     require('child_process')
         .exec((isWin ? 'sh' : 'node') + ' ./node_modules/.bin/electron --debug=5858 ./src/build/', {
@@ -140,10 +140,4 @@ gulp.task('dev', function(cb) {
                 NODE_ENV: 'dev'
             }
         }, cb);
-});
-
-gulp.task('fix', function() {
-    return gulp
-        .src('./fix/WebpackOptionsApply.js')
-        .pipe(gulp.dest('./node_modules/webpack/lib'));
 });

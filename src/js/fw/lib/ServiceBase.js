@@ -3,18 +3,19 @@
  *
  *
  *  @author  Howard.Zuo
- *  @date    Nov 20, 2015
+ *  @date    Feb 15, 2016
  *
  */
 'use strict';
-class ServiceBase {
+class ServiceBase{
 
-    constructor(features, app) {
+    constructor(features, app){
         this.features = features;
         this.app = app;
     }
 
-    execute() {}
+    execute(){
+    }
 }
 
 module.exports = ServiceBase;

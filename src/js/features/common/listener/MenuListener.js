@@ -3,7 +3,7 @@
  *  Defines MenuListener service
  *
  *  @author  Howard.Zuo
- *  @date    Dec 31, 2015
+ *  @date    Feb 15, 2016
  *
  */
 'use strict';
@@ -13,46 +13,45 @@ var ChatMenu = require('./ChatMenu');
 
 var remote = require('electron').remote;
 var Menu = remote.Menu;
-var MenuItem = remote.MenuItem;
 
-class Feature extends FeatureBase {
+class Feature extends FeatureBase{
 
-    constructor() {
+    constructor(){
         super('MenuListenerModule');
     }
 
-    listener($rootScope, events) {
-        window.quitGroup = function() {
+    listener($rootScope, events){
+        window.quitGroup = function(){
             events.emit('quit-group');
         };
 
-        window.quitApp = function() {
+        window.quitApp = function(){
             events.emit('quit-app');
         };
 
-        $rootScope.$on('$routeChangeSuccess', function(e, route) {
-            if (!route || !route.$$route || !route.$$route.id) {
+        $rootScope.$on('$routeChangeSuccess', function(e, route){
+            if (!route || !route.$$route || !route.$$route.id){
                 return;
             }
-            if (route.$$route.id === 'login') {
-                var menus = LoginMenu.slice(0, LoginMenu.length);
-                if (process.env.NODE_ENV !== 'dev') {
+            var menus;
+            if (route.$$route.id === 'login'){
+                menus = LoginMenu.slice(0, LoginMenu.length);
+                if (process.env.NODE_ENV !== 'dev'){
                     menus = LoginMenu.slice(0, LoginMenu.length - 1);
                 }
-                Menu.setApplicationMenu(Menu.buildFromTemplate(menus));
-                return;
+                return Menu.setApplicationMenu(Menu.buildFromTemplate(menus));
             }
 
-            var menus = ChatMenu.slice(0, ChatMenu.length);
-            if (process.env.NODE_ENV !== 'dev') {
+            menus = ChatMenu.slice(0, ChatMenu.length);
+            if (process.env.NODE_ENV !== 'dev'){
                 menus[menus.length - 1].submenu.splice(0, 2);
             }
-            Menu.setApplicationMenu(Menu.buildFromTemplate(menus));
+            return Menu.setApplicationMenu(Menu.buildFromTemplate(menus));
 
         });
     }
 
-    execute() {
+    execute(){
         this.listener.$inject = ['$rootScope', 'events'];
         this.run(this.listener);
     }

@@ -3,29 +3,29 @@
  *  This module handles quit event for application
  *
  *  @author  Howard.Zuo
- *  @date    Jan 5, 2016
+ *  @date    Feb 15, 2016
  *
  */
 'use strict';
 var FeatureBase = require('lib/FeatureBase');
 
-class Feature extends FeatureBase {
+class Feature extends FeatureBase{
 
-    constructor() {
+    constructor(){
         super('LogoutListenerModule');
     }
 
-    _listener(events, $document) {
+    _listener(events, $document){
 
-        window.onbeforeunload = function(e) {
-            if ($document[0].body.id !== 'login') {
+        window.onbeforeunload = function(e){
+            if ($document[0].body.id !== 'login'){
                 e.returnValue = false;
                 events.emit('quit-app');
             }
         };
     }
 
-    execute() {
+    execute(){
         this._listener.$inject = ['events', '$document'];
         this.run(this._listener);
     }

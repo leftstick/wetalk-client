@@ -2,7 +2,7 @@
  *  Defines the Info Dialog
  *
  *  @author  Howard.Zuo
- *  @date    Nov 24, 2015
+ *  @date    Feb 15, 2016
  *
  */
 'use strict';
@@ -10,25 +10,25 @@
 var FeatureBase = require('lib/FeatureBase');
 var extend = require('angular').extend;
 
-class Feature extends FeatureBase {
-    constructor() {
+class Feature extends FeatureBase{
+    constructor(){
         super('InfoModule');
     }
 
-    beforeStart() {
-    };
+    beforeStart(){
+    }
 
-    infoListener(events, $mdDialog) {
+    infoListener(events, $mdDialog){
         var defaults = {
             title: 'Info',
             content: '',
             event: null,
             okTxt: 'OK',
-            onComplete: function() {}
+            onComplete: function(){}
         };
 
-        events.on('info', function(data) {
-            var opts = extend({}, defaults, data);
+        events.on('info', function(data){
+            var opts = extend({ }, defaults, data);
 
             $mdDialog.show(
                 $mdDialog.alert()
@@ -42,7 +42,7 @@ class Feature extends FeatureBase {
         });
     }
 
-    execute() {
+    execute(){
         this.infoListener.$inject = ['events', '$mdDialog'];
         this.run(this.infoListener);
     }

@@ -6,17 +6,17 @@ module.exports = [
         submenu: [
             {
                 label: 'About Application',
-                visible: process.platform == 'darwin',
+                visible: process.platform === 'darwin',
                 selector: 'orderFrontStandardAboutPanel:'
             },
             {
                 type: 'separator',
-                visible: process.platform == 'darwin',
+                visible: process.platform === 'darwin'
             },
             {
                 label: 'Quit',
                 accelerator: 'CmdOrCtrl+Q',
-                click: function() {
+                click: function(){
                     require('electron').remote.app.quit();
                 }
             }
@@ -73,8 +73,8 @@ module.exports = [
                 label: 'Reload',
                 visible: process.env.NODE_ENV === 'dev',
                 accelerator: 'CmdOrCtrl+R',
-                click: function(item, focusedWindow) {
-                    if (focusedWindow) {
+                click: function(item, focusedWindow){
+                    if (focusedWindow){
                         focusedWindow.reload();
                     }
                 }
@@ -82,19 +82,18 @@ module.exports = [
             {
                 label: 'Toggle Developer Tools',
                 visible: process.env.NODE_ENV === 'dev',
-                accelerator: (function() {
-                    if (process.platform == 'darwin') {
+                accelerator: (function(){
+                    if (process.platform === 'darwin'){
                         return 'Alt+Command+I';
-                    } else {
-                        return 'Ctrl+Shift+I';
                     }
-                })(),
-                click: function(item, focusedWindow) {
-                    if (focusedWindow) {
+                    return 'Ctrl+Shift+I';
+                }()),
+                click: function(item, focusedWindow){
+                    if (focusedWindow){
                         focusedWindow.toggleDevTools();
                     }
                 }
-            },
+            }
         ]
     }
 ];

@@ -2,7 +2,7 @@
  *  Defines the ChatRoomContoller controller
  *
  *  @author  Howard.Zuo
- *  @date    Jan 5, 2016
+ *  @date    Feb 15, 2016
  *
  */
 'use strict';
@@ -10,7 +10,7 @@
 var io = require('socket.io-client');
 var mainWindow = require('electron').remote.getCurrentWindow();
 
-var ChatRoomContoller = function($scope, utils) {
+var ChatRoomContoller = function($scope, utils){
 
     $scope.messages = [];
 
@@ -22,25 +22,25 @@ var ChatRoomContoller = function($scope, utils) {
         multiplex: false
     });
 
-    chat.on('connect', function() {
+    chat.on('connect', function(){
         chat.emit('init', loginUser.id);
     });
 
-    chat.on('message', function(message) {
-        $scope.$apply(function() {
+    chat.on('message', function(message){
+        $scope.$apply(function(){
             $scope.messages.push(message);
         });
 
-        if (mainWindow.isFocused()) {
+        if (mainWindow.isFocused()){
             return;
         }
-        var myNotification = new Notification('Message', {
+        new Notification('Message', {
             body: message.user.nickname + '  ' + message.data
         });
     });
 
-    chat.on('group-user-added', function(user) {
-        $scope.$apply(function() {
+    chat.on('group-user-added', function(user){
+        $scope.$apply(function(){
             $scope.messages.push({
                 user: user,
                 type: 'user-notify',
@@ -49,8 +49,8 @@ var ChatRoomContoller = function($scope, utils) {
         });
     });
 
-    chat.on('group-user-removed', function(user) {
-        $scope.$apply(function() {
+    chat.on('group-user-removed', function(user){
+        $scope.$apply(function(){
             $scope.messages.push({
                 user: user,
                 type: 'user-notify',
@@ -59,17 +59,17 @@ var ChatRoomContoller = function($scope, utils) {
         });
     });
 
-    $scope.submitMessage = function(text) {
-        var message = {user: loginUser, type: 'normal', data: text};
+    $scope.submitMessage = function(text){
+        var message = { user: loginUser, type: 'normal', data: text };
         chat.emit('message', message);
         $scope.messages.push(message);
     };
 
-    $scope.showUsers = function($mdOpenMenu, ev) {
+    $scope.showUsers = function($mdOpenMenu, ev){
         $mdOpenMenu(ev);
     };
 
-    $scope.$on('$destroy', function() {
+    $scope.$on('$destroy', function(){
         chat.disconnect();
     });
 };

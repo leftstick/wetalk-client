@@ -2,7 +2,7 @@
  *  Defines the ChatController controller
  *
  *  @author  Howard.Zuo
- *  @date    Jan 5, 2016
+ *  @date    Feb 15, 2016
  *
  */
 'use strict';
@@ -10,88 +10,95 @@
 var io = require('socket.io-client');
 var CreateGroupTpl = require('../partials/createGroup.html');
 
-var ChatController = function($scope, ChatService, Auth, $mdSidenav, $mdDialog, utils, events) {
+var ChatController = function($scope, ChatService, Auth, $mdSidenav, $mdDialog, utils, events){
 
-    var chatroom = io(utils.getApi('/chatroom'), {multiplex: false});
+    var chatroom = io(utils.getApi('/chatroom'), { multiplex: false });
 
-    chatroom.on('group-added', function(group) {
-        $scope.$apply(function() {
+    chatroom.on('group-added', function(group){
+        $scope.$apply(function(){
             $scope.groups.push(group);
         });
     });
 
-    chatroom.on('group-removed', function(group) {
-        $scope.$apply(function() {
+    chatroom.on('group-removed', function(group){
+        $scope.$apply(function(){
             $scope.groups.splice($scope.groups.findIndex(g => g.id === group.id), 1);
         });
     });
 
-    chatroom.on('group-user-updated', function(group) {
-        $scope.$apply(function() {
+    chatroom.on('group-user-updated', function(group){
+        $scope.$apply(function(){
             $scope.groups.find(g => g.id === group.id).users = group.users;
-            if ($scope.state.joinedGroup && $scope.state.joinedGroup.id === group.id) {
+            if ($scope.state.joinedGroup && $scope.state.joinedGroup.id === group.id){
                 $scope.state.joinedGroup.users = group.users;
             }
         });
     });
 
-    $scope.state = {};
+    $scope.state = { };
     $scope.state.loginUser = Auth.loggedInUser();
 
     ChatService.getGroups()
-        .success(function(groups) {
+        .success(function(groups){
             $scope.groups = groups;
         });
 
-    $scope.toggleGroupsPanel = function(componentId) {
+    $scope.toggleGroupsPanel = function(componentId){
         $mdSidenav(componentId).toggle();
     };
 
-    $scope.createGroup = function($event) {
+    $scope.createGroup = function($event){
         $mdDialog.show({
             controller: 'CreateGroupController',
             template: CreateGroupTpl,
             targetEvent: $event,
             clickOutsideToClose: true
         })
-            .then(function(answer) {
+            .then(function(answer){
                 $scope.joinGroup(answer);
             });
     };
 
-    $scope.joinGroup = function(group) {
-        if ($scope.state.joinedGroup && $scope.state.joinedGroup.id === group.id) {
+    $scope.joinGroup = function(group){
+        if ($scope.state.joinedGroup && $scope.state.joinedGroup.id === group.id){
             return;
         }
         utils
-            .delay(() => $scope.state.joinedGroup = undefined)
-            .then(() => utils.delay(() => $scope.state.joinedGroup = group));
+            .delay(() => {
+                delete $scope.state.joinedGroup;
+            })
+            .then(() => utils.delay(() => {
+                $scope.state.joinedGroup = group;
+            }));
     };
 
-    $scope.quit = function() {
+    $scope.quit = function(){
         events.emit('confirm', {
             title: 'Would you like to logout?',
-            onComplete: function() {
+            onComplete: function(){
                 Auth.logout()
-                    .success(function() {
+                    .success(function(){
                         utils.redirect('/login');
                     });
             }
         });
     };
 
-    var quitGroup = function() {
-        $scope.state.joinedGroup.users.splice($scope.state.joinedGroup.users.findIndex(u => u.id === $scope.state.loginUser.id), 1);
+    var quitGroup = function(){
+        var index = $scope.state.joinedGroup.users.findIndex(u => u.id === $scope.state.loginUser.id);
+        $scope.state.joinedGroup.users.splice(index, 1);
         utils
-            .delay(() => $scope.state.joinedGroup = undefined);
+            .delay(() => {
+                delete $scope.state.joinedGroup;
+            });
     };
 
-    var quitApp = function() {
+    var quitApp = function(){
         events.emit('confirm', {
             title: 'Would you like to quit?',
-            onComplete: function() {
+            onComplete: function(){
                 Auth.logout()
-                    .success(function() {
+                    .success(function(){
                         require('electron').remote.app.exit(0);
                     });
             }
@@ -102,7 +109,7 @@ var ChatController = function($scope, ChatService, Auth, $mdSidenav, $mdDialog, 
 
     events.on('quit-app', quitApp);
 
-    $scope.$on('$destroy', function() {
+    $scope.$on('$destroy', function(){
         events.off('quit-group', quitGroup);
         events.off('quit-app', quitApp);
         chatroom.disconnect();

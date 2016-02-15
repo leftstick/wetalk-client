@@ -3,15 +3,15 @@
  *
  *
  *  @author  Howard.Zuo
- *  @date    Nov 24, 2015
+ *  @date    Feb 15, 2016
  *
  */
 'use strict';
 var angular = require('angular');
 
-class FeatureBase {
+class FeatureBase{
 
-    constructor(name) {
+    constructor(name){
         this.export = name;
         this.mod = angular.module(this.export, []);
         this.run = this.mod.run;
@@ -22,9 +22,11 @@ class FeatureBase {
         this.filter = this.mod.filter;
     }
 
-    beforeStart() {}
+    beforeStart(){
+    }
 
-    execute() {}
+    execute(){
+    }
 }
 
 module.exports = FeatureBase;

@@ -6,18 +6,18 @@ module.exports = [
         submenu: [
             {
                 label: 'About Application',
-                visible: process.platform == 'darwin',
+                visible: process.platform === 'darwin',
                 selector: 'orderFrontStandardAboutPanel:'
             },
             {
                 type: 'separator',
-                visible: process.platform == 'darwin',
+                visible: process.platform === 'darwin'
             },
             {
                 label: 'Quit',
                 accelerator: 'CmdOrCtrl+Q',
-                click: function() {
-                    if (window.quitApp) {
+                click: function(){
+                    if (window.quitApp){
                         window.quitApp();
                     }
                 }
@@ -69,8 +69,8 @@ module.exports = [
                 label: 'Reload',
                 accelerator: 'CmdOrCtrl+R',
                 visible: process.env.NODE_ENV === 'dev',
-                click: function(item, focusedWindow) {
-                    if (focusedWindow) {
+                click: function(item, focusedWindow){
+                    if (focusedWindow){
                         focusedWindow.reload();
                     }
                 }
@@ -78,15 +78,14 @@ module.exports = [
             {
                 label: 'Toggle Developer Tools',
                 visible: process.env.NODE_ENV === 'dev',
-                accelerator: (function() {
-                    if (process.platform == 'darwin') {
+                accelerator: (function(){
+                    if (process.platform === 'darwin'){
                         return 'Alt+Command+I';
-                    } else {
-                        return 'Ctrl+Shift+I';
                     }
-                })(),
-                click: function(item, focusedWindow) {
-                    if (focusedWindow) {
+                    return 'Ctrl+Shift+I';
+                }()),
+                click: function(item, focusedWindow){
+                    if (focusedWindow){
                         focusedWindow.toggleDevTools();
                     }
                 }
@@ -94,8 +93,8 @@ module.exports = [
             {
                 label: 'Quit Group',
                 accelerator: 'CmdOrCtrl+W',
-                click: function(item, focusedWindow) {
-                    if (window.quitGroup) {
+                click: function(item, focusedWindow){
+                    if (window.quitGroup){
                         window.quitGroup();
                     }
                 }

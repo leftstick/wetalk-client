@@ -4,7 +4,7 @@
  *   Defines a chat feature
  *
  *  @author  Howard.Zuo
- *  @date    Jan 4, 2016
+ *  @date    Feb 15, 2016
  *
  * ******************************************************************************************************
  */
@@ -21,14 +21,14 @@ var KeepBottom = require('./directive/KeepBottom');
 
 var chatroomTemplate = require('./partials/chatroom.html');
 
-class Feature extends FeatureBase {
+class Feature extends FeatureBase{
 
-    constructor() {
+    constructor(){
         super('chat');
         this.routes = Routes;
     }
 
-    execute() {
+    execute(){
         this.controller('ChatController', ChatController);
         this.controller('CreateGroupController', CreateGroupController);
         this.controller('ChatRoomContoller', ChatRoomContoller);
@@ -38,7 +38,7 @@ class Feature extends FeatureBase {
         this.directive('keepBottom', KeepBottom);
         this.run([
             'utils',
-            function(utils) {
+            function(utils){
                 utils.cache('chatroomTemplate', chatroomTemplate);
             }
         ]);

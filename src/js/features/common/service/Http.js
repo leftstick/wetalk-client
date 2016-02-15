@@ -2,26 +2,26 @@
  *  Defines `Http` service which provide same functionality as $http with extra logical judgement
  *
  *  @author  Howard.Zuo
- *  @date    Dec 29, 2015
+ *  @date    Feb 15, 2016
  *
  */
 'use strict';
 var FeatureBase = require('lib/FeatureBase');
 
-class Feature extends FeatureBase {
+class Feature extends FeatureBase{
 
-    constructor() {
+    constructor(){
         super('HttpModule');
     }
 
-    http($http, utils) {
-        var getArgs = function(raw) {
+    http($http, utils){
+        var getArgs = function(raw){
             return Array.prototype.slice.apply(raw);
         };
 
-        var commonSuccessHandler = function(resolve, reject) {
-            return function(res) {
-                if (!res || res.code) {
+        var commonSuccessHandler = function(resolve, reject){
+            return function(res){
+                if (!res || res.code){
                     reject(res);
                     return;
                 }
@@ -29,10 +29,10 @@ class Feature extends FeatureBase {
             };
         };
 
-        var wrapper = function(method) {
-            return function() {
+        var wrapper = function(method){
+            return function(){
                 var args = getArgs(arguments);
-                return utils.promise(function(resolve, reject) {
+                return utils.promise(function(resolve, reject){
                     $http[method].apply($http, args)
                         .success(commonSuccessHandler(resolve, reject))
                         .error(reject);
@@ -40,10 +40,10 @@ class Feature extends FeatureBase {
             };
         };
 
-        var http = function() {
+        var http = function(){
             var args = getArgs(arguments);
-            return utils.promise(function(resolve, reject) {
-                $http.apply(undefined, args)
+            return utils.promise(function(resolve, reject){
+                $http.apply(null, args)
                     .success(commonSuccessHandler(resolve, reject))
                     .error(reject);
             });
@@ -59,14 +59,14 @@ class Feature extends FeatureBase {
             'patch'
         ];
 
-        methods.forEach(function(method) {
+        methods.forEach(function(method){
             http[method] = wrapper(method);
         });
 
         return http;
     }
 
-    execute() {
+    execute(){
         this.http.$inject = ['$http', 'utils'];
         this.factory('http', this.http);
     }

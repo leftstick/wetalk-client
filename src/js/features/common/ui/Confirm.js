@@ -2,7 +2,7 @@
  *  Defines the Confirm
  *
  *  @author  Howard.Zuo
- *  @date    Dec 22, 2015
+ *  @date    Feb 15, 2016
  *
  */
 'use strict';
@@ -10,26 +10,26 @@
 var FeatureBase = require('lib/FeatureBase');
 var extend = require('angular').extend;
 
-class Feature extends FeatureBase {
-    constructor() {
+class Feature extends FeatureBase{
+    constructor(){
         super('ConfirmModule');
     }
 
-    beforeStart() {
-    };
+    beforeStart(){
+    }
 
-    confirmListener(events, $mdDialog) {
+    confirmListener(events, $mdDialog){
         var defaults = {
             title: 'Confirm',
             content: '',
             okTxt: 'OK',
             cancelTxt: 'Cancel',
-            onComplete: function() {},
-            onCancel: function() {}
+            onComplete: function(){},
+            onCancel: function(){}
         };
 
-        events.on('confirm', function(data) {
-            var opts = extend({}, defaults, data);
+        events.on('confirm', function(data){
+            var opts = extend({ }, defaults, data);
 
             var confirm = $mdDialog.confirm()
                 .title(opts.title)
@@ -42,7 +42,7 @@ class Feature extends FeatureBase {
         });
     }
 
-    execute() {
+    execute(){
         this.confirmListener.$inject = ['events', '$mdDialog'];
         this.run(this.confirmListener);
     }

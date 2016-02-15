@@ -9,15 +9,15 @@
 'use strict';
 var ConfiguratorBase = require('lib/ConfiguratorBase');
 
-class Configurator extends ConfiguratorBase {
-    constructor(features, app) {
+class Configurator extends ConfiguratorBase{
+    constructor(features, app){
         super(features, app);
     }
 
-    execute() {
+    execute(){
         this.app.config([
             '$mdThemingProvider',
-            function($mdThemingProvider) {
+            function($mdThemingProvider){
                 $mdThemingProvider
                     .theme('default')
                     .primaryPalette('indigo')

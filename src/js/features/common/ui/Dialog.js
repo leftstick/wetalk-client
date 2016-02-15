@@ -2,7 +2,7 @@
  *  Defines the Dialog
  *
  *  @author  Howard.Zuo
- *  @date    Dec 22, 2015
+ *  @date    Feb 15, 2016
  *
  */
 'use strict';
@@ -10,22 +10,22 @@
 var FeatureBase = require('lib/FeatureBase');
 var extend = require('angular').extend;
 
-class Feature extends FeatureBase {
-    constructor() {
+class Feature extends FeatureBase{
+    constructor(){
         super('DialogModule');
     }
 
-    beforeStart() {
-    };
+    beforeStart(){
+    }
 
-    dialogListener(events, $mdDialog) {
+    dialogListener(events, $mdDialog){
         var defaults = {
             template: '',
-            onComplete: function() {}
+            onComplete: function(){}
         };
 
-        events.on('dialog', function(data) {
-            var opts = extend({}, defaults, data);
+        events.on('dialog', function(data){
+            var opts = extend({ }, defaults, data);
             $mdDialog.show({
                 scope: opts.scope,
                 targetEvent: opts.event,
@@ -35,7 +35,7 @@ class Feature extends FeatureBase {
         });
     }
 
-    execute() {
+    execute(){
         this.dialogListener.$inject = ['events', '$mdDialog'];
         this.run(this.dialogListener);
     }

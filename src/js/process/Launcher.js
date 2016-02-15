@@ -21,15 +21,15 @@ var startupOpts = {
     titleBarStyle: 'default'
 };
 
-var Launcher = function(app) {
-    return new Promise(function(resolve, reject) {
-        app.on('ready', function() {
+var Launcher = function(app){
+    return new Promise(function(resolve, reject){
+        app.on('ready', function(){
             var mainWindow = new BrowserWindow(startupOpts);
             mainWindow.loadURL('file://' + path.resolve(__dirname, '..') + '/index.html');
-            mainWindow.on('closed', function() {
+            mainWindow.on('closed', function(){
                 mainWindow = null;
             });
-            // mainWindow.show();
+
             resolve(mainWindow);
         });
     });

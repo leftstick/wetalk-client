@@ -3,17 +3,18 @@
  *
  *
  *  @author  Howard.Zuo
- *  @date    Nov 20, 2015
+ *  @date    Feb 15, 2016
  *
  */
 'use strict';
-class InitBase {
+class InitBase{
 
-    constructor(features) {
+    constructor(features){
         this.features = features;
     }
 
-    execute() {}
+    execute(){
+    }
 }
 
 module.exports = InitBase;

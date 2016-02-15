@@ -2,12 +2,12 @@
  *  Defines the CreateGroupController controller
  *
  *  @author  Howard.Zuo
- *  @date    Jan 1, 2016
+ *  @date    Feb 15, 2016
  *
  */
 'use strict';
 
-var CreateGroupController = function($scope, events, Auth, ChatService, $mdDialog) {
+var CreateGroupController = function($scope, events, Auth, ChatService, $mdDialog){
 
     $scope.loginUser = Auth.loggedInUser();
 
@@ -22,30 +22,30 @@ var CreateGroupController = function($scope, events, Auth, ChatService, $mdDialo
         'icon-reddit'
     ];
 
-    $scope.group = {icon: $scope.icons[0], busy: false};
+    $scope.group = { icon: $scope.icons[0], busy: false };
 
-    $scope.selectGroupIcon = function(icon) {
+    $scope.selectGroupIcon = function(icon){
         $scope.group.icon = icon;
     };
 
-    $scope.createGroup = function() {
+    $scope.createGroup = function(){
         $scope.group.busy = true;
         ChatService.createGroup({
             icon: $scope.group.icon,
             name: $scope.group.name,
             ownerId: $scope.loginUser.id
         })
-            .success(function(group) {
+            .success(function(group){
                 $scope.group.busy = false;
                 $mdDialog.hide(group);
             })
-            .error(function() {
+            .error(function(){
                 $scope.group.busy = false;
                 events.emit('toast-warning', 'group name is already exist');
             });
     };
 
-    $scope.$on('$destroy', function() {});
+    $scope.$on('$destroy', function(){});
 };
 
 CreateGroupController.$inject = [

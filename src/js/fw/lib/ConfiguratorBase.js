@@ -7,14 +7,15 @@
  *
  */
 'use strict';
-class ConfiguratorBase {
+class ConfiguratorBase{
 
-    constructor(features, app) {
+    constructor(features, app){
         this.features = features;
         this.app = app;
     }
 
-    execute() {}
+    execute(){
+    }
 }
 
 module.exports = ConfiguratorBase;

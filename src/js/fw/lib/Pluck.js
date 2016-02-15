@@ -2,21 +2,21 @@
  *  Gets the property value of path from all elements in collection.
  *
  *  @author  Howard.Zuo
- *  @date    Nov 20, 2015
+ *  @date    Feb 15, 2016
  *
  */
 'use strict';
 
 var angular = require('angular');
 
-var pluck = function(arr, key) {
-    if (!angular.isArray(arr) || arr.length === 0) {
+var pluck = function(arr, key){
+    if (!angular.isArray(arr) || arr.length === 0){
         return [];
     }
-    if (!key) {
+    if (!key){
         return arr;
     }
-    return arr.map(function(a) {
+    return arr.map(function(a){
         return a[key];
     });
 };

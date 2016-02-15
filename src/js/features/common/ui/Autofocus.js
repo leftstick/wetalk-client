@@ -3,30 +3,30 @@
  *  This module used to override the original `autofocus` attribute since it doesn't work properly with ngRoute
  *
  *  @author  Howard.Zuo
- *  @date    Dec 31, 2015
+ *  @date    Feb 15, 2016
  *
  */
 'use strict';
 var FeatureBase = require('lib/FeatureBase');
 
-class Feature extends FeatureBase {
+class Feature extends FeatureBase{
 
-    constructor() {
+    constructor(){
         super('AutofocusModule');
     }
 
-    autofocus(utils) {
+    autofocus(utils){
         return {
             restrict: 'A',
-            link: function($scope, element) {
-                utils.delay(function() {
+            link: function($scope, element){
+                utils.delay(function(){
                     element[0].focus();
                 }, 100);
             }
         };
     }
 
-    execute() {
+    execute(){
         this.autofocus.$inject = ['utils'];
         this.directive('autofocus', this.autofocus);
     }

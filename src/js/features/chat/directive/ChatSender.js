@@ -2,7 +2,7 @@
  *  Defines the ChatSender directive
  *
  *  @author  Howard.Zuo
- *  @date    Jan 6, 2016
+ *  @date    Feb 15, 2016
  *
  */
 'use strict';
@@ -12,18 +12,18 @@ var senderTpl = require('./sender.html');
 var key = require('keymaster');
 var angular = require('angular');
 
-var ChatSender = function() {
+var ChatSender = function(){
     return {
         restrict: 'EA',
         scope: {
             onSubmit: '&'
         },
         template: senderTpl,
-        link: function($scope, element, attrs) {
-            $scope.state = {};
+        link: function($scope, element, attrs){
+            $scope.state = { };
 
-            $scope.sendMsg = function() {
-                if (!$scope.state.message) {
+            $scope.sendMsg = function(){
+                if (!$scope.state.message){
                     return;
                 }
                 $scope.onSubmit({
@@ -35,15 +35,15 @@ var ChatSender = function() {
 
             var sender = angular.element(element[0].querySelector('[contenteditable]'));
 
-            sender.on('focus', function() {
-                key('enter', function(event, handler) {
-                    $scope.$apply(function() {
+            sender.on('focus', function(){
+                key('enter', function(event, handler){
+                    $scope.$apply(function(){
                         $scope.sendMsg();
                     });
                 });
             });
 
-            var unbind = function() {
+            var unbind = function(){
                 key.unbind('enter');
             };
 

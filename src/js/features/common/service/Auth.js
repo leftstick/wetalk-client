@@ -3,48 +3,48 @@
  *  This module used to communicated with server
  *
  *  @author  Howard.Zuo
- *  @date    Dec 31, 2015
+ *  @date    Feb 15, 2016
  *
  */
 'use strict';
 var FeatureBase = require('lib/FeatureBase');
 
-class Feature extends FeatureBase {
+class Feature extends FeatureBase{
 
-    constructor() {
+    constructor(){
         super('AuthModule');
     }
 
-    _authService(http, utils) {
+    _authService(http, utils){
         var user;
 
-        this.login = function(nickname) {
+        this.login = function(nickname){
             var promise = http.post(utils.getApi('/login'), {
                 nickname: nickname
             });
-            promise.success(function(u) {
+            promise.success(function(u){
                 user = u;
             });
             return promise;
         };
 
-        this.logout = function() {
-            if (!user) {
+        this.logout = function(){
+            if (!user){
                 return utils.promise(resolve => resolve());
             }
             var promise = http.post(utils.getApi('/logout/' + user.id));
-            promise.success(function() {
+            promise.success(function(){
                 user = null;
             });
             return promise;
         };
 
-        this.loggedInUser = function() {
+        this.loggedInUser = function(){
             return user;
         };
     }
 
-    execute() {
+    execute(){
         this._authService.$inject = ['http', 'utils'];
         this.service('Auth', this._authService);
     }

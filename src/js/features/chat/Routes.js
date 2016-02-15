@@ -3,7 +3,7 @@
  *  Routes module expose route information used in chat feature
  *
  *  @author  Howard.Zuo
- *  @date    Dec 30, 2015
+ *  @date    Feb 15, 2016
  *
  */
 'use strict';

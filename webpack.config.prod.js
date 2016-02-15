@@ -1,8 +1,9 @@
 'use strict';
 var path = require('path');
 var webpack = require('webpack');
+var autoprefixer = require('autoprefixer');
 
-var presetsQuery = JSON.stringify({presets: ['es2015']});
+var presetsQuery = JSON.stringify({ presets: ['es2015'] });
 
 module.exports = {
     entry: {
@@ -28,7 +29,7 @@ module.exports = {
             },
             {
                 test: /\.less$/,
-                loader: 'style!css!autoprefixer?browsers=last 1 version!less!'
+                loader: 'style!css!postcss!less!'
             },
             {
                 test: /\.(eot|svg|ttf|woff|woff2|png)\w*/,
@@ -39,6 +40,11 @@ module.exports = {
                 loader: 'raw'
             }
         ]
+    },
+    postcss: function(){
+        return [
+            autoprefixer({ browsers: ['last 5 versions'] })
+        ];
     },
     resolve: {
         root: [

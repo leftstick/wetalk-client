@@ -9,22 +9,22 @@
  *
 **/
 'use strict';
-var debounce = function(func, wait, immediate) {
+var debounce = function(func, wait, immediate){
     var timeout;
-    return function() {
-        var context = this,
+    return function(){
+        var ctx = this,
             args = arguments;
-        var later = function() {
+        var later = function(){
             timeout = null;
-            if (!immediate) {
-                func.apply(context, args);
+            if (!immediate){
+                func.apply(ctx, args);
             }
         };
         var callNow = immediate && !timeout;
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
-        if (callNow) {
-            func.apply(context, args);
+        if (callNow){
+            func.apply(ctx, args);
         }
     };
 };

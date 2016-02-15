@@ -2,23 +2,23 @@
  *  Defines the Toast
  *
  *  @author  Howard.Zuo
- *  @date    Dec 22, 2015
+ *  @date    Feb 15, 2016
  *
  */
 'use strict';
 
 var FeatureBase = require('lib/FeatureBase');
-var {extend} = require('angular');
+var { extend } = require('angular');
 
-class Feature extends FeatureBase {
-    constructor() {
+class Feature extends FeatureBase{
+    constructor(){
         super('ToastModule');
     }
 
-    beforeStart() {
-    };
+    beforeStart(){
+    }
 
-    toastListener(events, $mdToast) {
+    toastListener(events, $mdToast){
         var defaultDelay = {
             info: 2000,
             error: 3000,
@@ -32,37 +32,40 @@ class Feature extends FeatureBase {
             type: 'info'
         };
 
-        events.on('toast', function(data) {
-            var opts = extend({}, defaults, data);
+        events.on('toast', function(data){
+            var opts = extend({ }, defaults, data);
             $mdToast.show({
-                template: '<md-toast md-theme="default" class="' + opts.type + '"><div class="md-toast-content"><span flex>' + opts.content + '</span></div></md-toast>',
+                template: '<md-toast md-theme="default" class="' + opts.type + '">'
+                    + '<div class="md-toast-content"><span flex>'
+                    + opts.content + '</span></div>'
+                    + '</md-toast>',
                 hideDelay: data.delay || defaultDelay[opts.type],
                 position: opts.position
             });
         });
 
-        events.on('toast-warning', function(content) {
+        events.on('toast-warning', function(content){
             events.emit('toast', {
                 type: 'warning',
                 content: content
             });
         });
 
-        events.on('toast-error', function(content) {
+        events.on('toast-error', function(content){
             events.emit('toast', {
                 type: 'error',
                 content: content
             });
         });
 
-        events.on('toast-success', function(content) {
+        events.on('toast-success', function(content){
             events.emit('toast', {
                 type: 'success',
                 content: content
             });
         });
 
-        events.on('toast-info', function(content) {
+        events.on('toast-info', function(content){
             events.emit('toast', {
                 type: 'info',
                 content: content
@@ -70,7 +73,7 @@ class Feature extends FeatureBase {
         });
     }
 
-    execute() {
+    execute(){
         this.toastListener.$inject = ['events', '$mdToast'];
         this.run(this.toastListener);
     }
